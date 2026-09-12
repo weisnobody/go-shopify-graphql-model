@@ -1,6 +1,6 @@
 # Where are all the schema files located? globs are supported eg  src/**/*.graphql
 schema:
-  - schema.graphql
+  - files/schema.graphql
 
 # Where should any generated models go?
 model:
@@ -8,6 +8,10 @@ model:
   package: model
 
 omit_slice_element_pointers: true
+
+skip_mod_tidy: true
+
+omit_enum_json_marshalers: true
 
 # we don't use generated.go and it causes mod.tidy to change go.mod it is included
 exec:

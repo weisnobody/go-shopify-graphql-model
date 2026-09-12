@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/r0busta/go-shopify-graphql-model/v4/graph/model"
+	"github.com/r0busta/go-shopify-graphql-model/graph/model"
 	"github.com/stretchr/testify/assert"
 	null "gopkg.in/guregu/null.v4"
 )
