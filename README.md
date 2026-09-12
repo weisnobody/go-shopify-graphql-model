@@ -3,7 +3,7 @@
 This is a simple library to help you use Shopify's GraphQL objects in your Go code.  It comes with a models based on a specific version of the Shopify GraphQL (see [./graph/model/version.go](./graph/model/version.go) for the current version).
 
 * This commit is likely to be abandoned because while working on it the original author also implemented the fetch step in go so it is no longer needed, though it's possible some items could be useful.   I've committed this to my repo just for reference.
-
+* The fetch go was created with the help of ChatGPT to convert the fetchSchema.js to go.
 
 ## Using ##
 
