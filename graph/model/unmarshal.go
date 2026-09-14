@@ -147,7 +147,6 @@ func (s *Product) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-
 // UnmarshalJSON decodes conditionObject into its concrete type.
 // The __typename field will be returned in the ConditionObject results by default.
 func (s *CollectionRule) UnmarshalJSON(b []byte) error {
