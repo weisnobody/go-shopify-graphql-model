@@ -78,8 +78,8 @@ func decodeConditionObject(raw json.RawMessage) (CollectionRuleConditionObject, 
 	return v.(CollectionRuleConditionObject), nil
 }
 
-// UnmarshalJSON decodes the Media node into its concrete type. The query must
-// select __typename or id on the node.
+// UnmarshalJSON decodes the Media node into its concrete type.
+// The __typename field should always be returned in the Node results.
 func (s *MediaEdge) UnmarshalJSON(b []byte) error {
 	type alias MediaEdge
 	tmp := struct {
@@ -99,8 +99,8 @@ func (s *MediaEdge) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON decodes the Media nodes into their concrete types. The query
-// must select __typename or id on each node.
+// UnmarshalJSON decodes the Media nodes into their concrete types.
+// The __typename field will be returned in the Nodes results by default.
 func (s *MediaConnection) UnmarshalJSON(b []byte) error {
 	type alias MediaConnection
 	tmp := struct {
@@ -126,8 +126,29 @@ func (s *MediaConnection) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON decodes conditionObject into its concrete type. The query
-// must select __typename on conditionObject.
+// UnmarshalJSON decodes the Media featuredMedia into their concrete types.
+// The __typename field will be returned in the FeaturedMedia results by default.
+func (s *Product) UnmarshalJSON(b []byte) error {
+	type alias Product
+	tmp := struct {
+		*alias
+		FeaturedMedia json.RawMessage `json:"featuredMedia"`
+	}{alias: (*alias)(s)}
+	if err := json.Unmarshal(b, &tmp); err != nil {
+		return err
+	}
+
+	featuredMedia, err := decodeMedia(tmp.FeaturedMedia)
+	if err != nil {
+		return err
+	}
+	s.FeaturedMedia = featuredMedia
+
+	return nil
+}
+
+// UnmarshalJSON decodes conditionObject into its concrete type.
+// The __typename field will be returned in the ConditionObject results by default.
 func (s *CollectionRule) UnmarshalJSON(b []byte) error {
 	type alias CollectionRule
 	tmp := struct {
@@ -185,8 +206,8 @@ func decodeCollectionSource(raw json.RawMessage) (CollectionSource, error) {
 	return v.(CollectionSource), nil
 }
 
-// UnmarshalJSON decodes the sources into their concrete types. The query must
-// select __typename on each source.
+// UnmarshalJSON decodes the sources into their concrete types.
+// The __typename field will be returned in the Sources results by default.
 func (s *Collection) UnmarshalJSON(b []byte) error {
 	type alias Collection
 	tmp := struct {
@@ -234,8 +255,8 @@ func decodeExclusionCondition(raw json.RawMessage) (CollectionSourceExclusionCon
 	return v.(CollectionSourceExclusionCondition), nil
 }
 
-// UnmarshalJSON decodes the conditions into their concrete types. The query
-// must select __typename on each condition.
+// UnmarshalJSON decodes the conditions into their concrete types.
+// The __typename field will be returned in the Conditions results by default.
 func (s *CollectionSourceInclusion) UnmarshalJSON(b []byte) error {
 	type alias CollectionSourceInclusion
 	tmp := struct {
@@ -261,8 +282,8 @@ func (s *CollectionSourceInclusion) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// UnmarshalJSON decodes the conditions into their concrete types. The query
-// must select __typename on each condition.
+// UnmarshalJSON decodes the conditions into their concrete types.
+// The __typename field will be returned in the Conditions results by default.
 func (s *CollectionSourceExclusion) UnmarshalJSON(b []byte) error {
 	type alias CollectionSourceExclusion
 	tmp := struct {
